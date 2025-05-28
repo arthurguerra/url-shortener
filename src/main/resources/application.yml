@@ -1,12 +1,8 @@
 spring:
-  datasource:
-    url: jdbc:postgresql://localhost:5399/url_shortener
-    username: user
-    password: password
-  jpa:
-    hibernate:
-      ddl-auto: none
-    show-sql: true
-  flyway:
-    enabled: true
-    locations: classpath:db/migration
+  application:
+    name: url_shortener
+  profiles:
+    active: dev
+
+server:
+  port: 8080
