@@ -17,6 +17,7 @@ public class LinkService {
 
     public ShortenResponseDto createShortLink(String originalUrl) {
         Link link = Link.create(originalUrl);
+        linkRepository.save(link);
         String shortUrl = APPLICATION_URL + link.getShortCode();
 
         return new ShortenResponseDto(originalUrl, shortUrl);
