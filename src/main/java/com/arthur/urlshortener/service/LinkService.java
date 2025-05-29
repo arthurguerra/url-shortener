@@ -4,7 +4,9 @@ import com.arthur.urlshortener.dto.ShortenResponseDto;
 import com.arthur.urlshortener.entity.Link;
 import com.arthur.urlshortener.repository.LinkRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 
 @Service
@@ -21,5 +23,15 @@ public class LinkService {
         String shortUrl = APPLICATION_URL + link.getShortCode();
 
         return new ShortenResponseDto(originalUrl, shortUrl);
+    }
+
+    public String getOriginalUrlAndRegisterClick(String shortCode) {
+        Link link = linkRepository.findByShortCode(shortCode)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Short code not found"));
+
+        link.registerClick();
+        linkRepository.save(link);
+
+        return link.getOriginalUrl();
     }
 }
