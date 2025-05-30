@@ -3,11 +3,10 @@ package com.arthur.urlshortener.service;
 import com.arthur.urlshortener.dto.LinkListResponseDto;
 import com.arthur.urlshortener.dto.ShortenResponseDto;
 import com.arthur.urlshortener.entity.Link;
+import com.arthur.urlshortener.exception.LinkNotFoundException;
 import com.arthur.urlshortener.repository.LinkRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -30,7 +29,7 @@ public class LinkService {
 
     public String getOriginalUrlAndRegisterClick(String shortCode) {
         Link link = linkRepository.findByShortCode(shortCode)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Short code not found"));
+                .orElseThrow(() -> new LinkNotFoundException("Short code not found: " + shortCode));
 
         link.registerClick();
         linkRepository.save(link);
