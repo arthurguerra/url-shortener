@@ -1,5 +1,6 @@
 package com.arthur.urlshortener.controller;
 
+import com.arthur.urlshortener.dto.LinkListResponseDto;
 import com.arthur.urlshortener.dto.ShortenRequestDto;
 import com.arthur.urlshortener.dto.ShortenResponseDto;
 import com.arthur.urlshortener.service.LinkService;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 public class LinkController {
@@ -33,5 +36,10 @@ public class LinkController {
         return ResponseEntity.status(HttpStatus.FOUND)
                 .header(HttpHeaders.LOCATION, originalUrl)
                 .build();
+    }
+
+    @GetMapping("/api/links")
+    public ResponseEntity<List<LinkListResponseDto>> getAllLinks() {
+        return ResponseEntity.ok(linkService.getAllLinks());
     }
 }

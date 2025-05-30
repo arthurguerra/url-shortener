@@ -1,5 +1,6 @@
 package com.arthur.urlshortener.service;
 
+import com.arthur.urlshortener.dto.LinkListResponseDto;
 import com.arthur.urlshortener.dto.ShortenResponseDto;
 import com.arthur.urlshortener.entity.Link;
 import com.arthur.urlshortener.repository.LinkRepository;
@@ -7,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+
+import java.util.List;
 
 
 @Service
@@ -33,5 +36,14 @@ public class LinkService {
         linkRepository.save(link);
 
         return link.getOriginalUrl();
+    }
+
+    public List<LinkListResponseDto> getAllLinks() {
+        return linkRepository.findAll().stream()
+                .map(link -> new LinkListResponseDto(
+                        link.getShortCode(),
+                        link.getOriginalUrl(),
+                        link.getClicks()))
+                .toList();
     }
 }
