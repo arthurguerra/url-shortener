@@ -28,8 +28,7 @@ public class LinkService {
     }
 
     public String getOriginalUrlAndRegisterClick(String shortCode) {
-        Link link = linkRepository.findByShortCode(shortCode)
-                .orElseThrow(() -> new LinkNotFoundException("Short code not found: " + shortCode));
+        Link link = getLink(shortCode);
 
         link.registerClick();
         linkRepository.save(link);
@@ -44,5 +43,15 @@ public class LinkService {
                         link.getOriginalUrl(),
                         link.getClicks()))
                 .toList();
+    }
+
+    public void deleteLink(String shortCode) {
+        Link link = getLink(shortCode);
+        linkRepository.delete(link);
+    }
+
+    private Link getLink(String shortCode) {
+        return linkRepository.findByShortCode(shortCode)
+                .orElseThrow(() -> new LinkNotFoundException("Short code not found: " + shortCode));
     }
 }
