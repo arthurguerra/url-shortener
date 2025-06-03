@@ -1,8 +1,8 @@
 spring:
   application:
-    name: url_shortener
+    name: url-shortener
   profiles:
-    active: dev
+    active: ${SPRING_PROFILES_ACTIVE:dev}
 
 server:
-  port: 8080
+  port: ${SERVER_PORT:8080}

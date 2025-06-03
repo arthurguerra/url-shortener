@@ -26,15 +26,12 @@ target/
 application-local.properties
 
 # Build
-target/
 *.class
 
 #Environment
 *.env
-.env.*
+#.env.*
 
-# Logs
-*.log
 
 #Spring
 spring.log
