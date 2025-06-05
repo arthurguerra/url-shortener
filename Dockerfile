@@ -1,14 +1,12 @@
-# Usando imagem oficial do Java
-FROM eclipse-temurin:21-jre
-
-# Diretório de trabalho dentro do container
+FROM maven:3.9.6-eclipse-temurin-21 AS build
 WORKDIR /app
+COPY . .
+RUN mvn clean package -DskipTests
 
-# Copia o jar gerado
-COPY target/urlshortener-0.0.1-SNAPSHOT.jar app.jar
+FROM eclipse-temurin:21-jre
+WORKDIR /app
+COPY --from=build /app/target/urlshortener-0.0.1-SNAPSHOT.jar app.jar
 
-# Porta que a aplicação irá expor
-EXPOSE 8080
+EXPOSE ${SERVER_PORT}
 
-# Comando para rodar a aplicação
 ENTRYPOINT ["java", "-jar", "app.jar"]
