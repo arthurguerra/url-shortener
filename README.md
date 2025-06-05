@@ -1,0 +1,1 @@
+run `docker compose --profile app up --build`
