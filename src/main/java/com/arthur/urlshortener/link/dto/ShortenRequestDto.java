@@ -1,4 +1,4 @@
-package com.arthur.urlshortener.dto;
+package com.arthur.urlshortener.link.dto;
 
 import jakarta.validation.constraints.NotBlank;
 

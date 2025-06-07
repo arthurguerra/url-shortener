@@ -1,10 +1,10 @@
-package com.arthur.urlshortener.service;
+package com.arthur.urlshortener.link.service;
 
-import com.arthur.urlshortener.dto.LinkListResponseDto;
-import com.arthur.urlshortener.dto.ShortenResponseDto;
-import com.arthur.urlshortener.entity.Link;
+import com.arthur.urlshortener.link.dto.LinkListResponseDto;
+import com.arthur.urlshortener.link.dto.ShortenResponseDto;
+import com.arthur.urlshortener.link.entity.Link;
 import com.arthur.urlshortener.exception.LinkNotFoundException;
-import com.arthur.urlshortener.repository.LinkRepository;
+import com.arthur.urlshortener.link.repository.LinkRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

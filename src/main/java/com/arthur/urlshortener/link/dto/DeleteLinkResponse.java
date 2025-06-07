@@ -1,4 +1,4 @@
-package com.arthur.urlshortener.dto;
+package com.arthur.urlshortener.link.dto;
 
 public record DeleteLinkResponse(
         String message

@@ -1,10 +1,10 @@
-package com.arthur.urlshortener.controller;
+package com.arthur.urlshortener.link.controller;
 
-import com.arthur.urlshortener.dto.DeleteLinkResponse;
-import com.arthur.urlshortener.dto.LinkListResponseDto;
-import com.arthur.urlshortener.dto.ShortenRequestDto;
-import com.arthur.urlshortener.dto.ShortenResponseDto;
-import com.arthur.urlshortener.service.LinkService;
+import com.arthur.urlshortener.link.dto.DeleteLinkResponse;
+import com.arthur.urlshortener.link.dto.LinkListResponseDto;
+import com.arthur.urlshortener.link.dto.ShortenRequestDto;
+import com.arthur.urlshortener.link.dto.ShortenResponseDto;
+import com.arthur.urlshortener.link.service.LinkService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
