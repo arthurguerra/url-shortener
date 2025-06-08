@@ -1,7 +1,9 @@
 package com.arthur.urlshortener.link.service;
 
+import com.arthur.urlshortener.acesslog.dto.AccessLogResponse;
 import com.arthur.urlshortener.exception.LinkNotFoundException;
 import com.arthur.urlshortener.link.dto.LinkListResponseDto;
+import com.arthur.urlshortener.link.dto.LinkLogsResponse;
 import com.arthur.urlshortener.link.dto.ShortenResponseDto;
 import com.arthur.urlshortener.acesslog.entity.AccessLog;
 import com.arthur.urlshortener.link.entity.Link;
@@ -59,6 +61,20 @@ public class LinkService {
     public void deleteLink(String shortCode) {
         Link link = getLink(shortCode);
         linkRepository.delete(link);
+    }
+
+    public LinkLogsResponse getLinkWithLogs(String shortCode) {
+        Link link = getLink(shortCode);
+
+        return new LinkLogsResponse(
+                link.getShortCode(),
+                link.getOriginalUrl(),
+                link.getClicks(),
+                link.getAccessLogs()
+                        .stream()
+                        .map(AccessLogResponse::from)
+                        .toList()
+        );
     }
 
     private Link getLink(String shortCode) {

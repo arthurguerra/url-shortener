@@ -2,6 +2,7 @@ package com.arthur.urlshortener.link.controller;
 
 import com.arthur.urlshortener.link.dto.DeleteLinkResponse;
 import com.arthur.urlshortener.link.dto.LinkListResponseDto;
+import com.arthur.urlshortener.link.dto.LinkLogsResponse;
 import com.arthur.urlshortener.link.dto.ShortenRequestDto;
 import com.arthur.urlshortener.link.dto.ShortenResponseDto;
 import com.arthur.urlshortener.link.service.LinkService;
@@ -48,9 +49,14 @@ public class LinkController {
         return ResponseEntity.ok(linkService.getAllLinks());
     }
 
-    @DeleteMapping("/api/links/{shortCode}")
+    @DeleteMapping("/api/link/{shortCode}")
     public ResponseEntity<DeleteLinkResponse> deleteLink(@PathVariable String shortCode) {
         linkService.deleteLink(shortCode);
         return ResponseEntity.ok(new DeleteLinkResponse("Link deleted successfully"));
+    }
+
+    @GetMapping("/api/log/{shortCode}")
+    public ResponseEntity<LinkLogsResponse> getLinkWithLogs(@PathVariable String shortCode) {
+        return ResponseEntity.ok(linkService.getLinkWithLogs(shortCode));
     }
 }
