@@ -1,12 +1,16 @@
 package com.arthur.urlshortener.link.entity;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -29,6 +33,9 @@ public class Link {
 
     @Column(nullable = false)
     private Long clicks;
+
+    @OneToMany(mappedBy = "link", cascade = CascadeType.ALL)
+    private List<AccessLog> accessLogs = new ArrayList<>();
 
     protected Link() {
         this.shortCode = null;
@@ -64,8 +71,11 @@ public class Link {
         return clicks;
     }
 
+    public List<AccessLog> getAccessLogs() {
+        return accessLogs;
+    }
+
     private String generateShortCode() {
-        // todo change code generation for more secure and robust
         return UUID.randomUUID().toString().substring(0, 6);
     }
 }
