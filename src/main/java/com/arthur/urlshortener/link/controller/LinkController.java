@@ -5,6 +5,7 @@ import com.arthur.urlshortener.link.dto.LinkListResponseDto;
 import com.arthur.urlshortener.link.dto.ShortenRequestDto;
 import com.arthur.urlshortener.link.dto.ShortenResponseDto;
 import com.arthur.urlshortener.link.service.LinkService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -32,8 +33,8 @@ public class LinkController {
     }
 
     @GetMapping("/{shortCode}")
-    public ResponseEntity<Void> redirectToOriginalUrl(@PathVariable String shortCode) {
-        String originalUrl = linkService.getOriginalUrlAndRegisterClick(shortCode);
+    public ResponseEntity<Void> redirectToOriginalUrl(@PathVariable String shortCode, HttpServletRequest request) {
+        String originalUrl = linkService.getOriginalUrlAndRegisterClick(shortCode, request);
 
         return ResponseEntity.status(HttpStatus.FOUND)
                 .header(HttpHeaders.LOCATION, originalUrl)
