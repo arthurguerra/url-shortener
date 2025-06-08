@@ -1,5 +1,6 @@
 package com.arthur.urlshortener.link.entity;
 
+import com.arthur.urlshortener.acesslog.entity.AccessLog;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

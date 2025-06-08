@@ -1,5 +1,6 @@
-package com.arthur.urlshortener.link.entity;
+package com.arthur.urlshortener.acesslog.entity;
 
+import com.arthur.urlshortener.link.entity.Link;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
