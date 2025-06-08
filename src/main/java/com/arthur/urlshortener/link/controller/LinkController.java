@@ -6,6 +6,7 @@ import com.arthur.urlshortener.link.dto.LinkLogsResponse;
 import com.arthur.urlshortener.link.dto.ShortenRequestDto;
 import com.arthur.urlshortener.link.dto.ShortenResponseDto;
 import com.arthur.urlshortener.link.service.LinkService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpHeaders;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
+@Tag(name = "Links", description = "Operations related to shortened links")
 public class LinkController {
 
     private final LinkService linkService;
