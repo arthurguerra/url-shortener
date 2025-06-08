@@ -1,14 +1,13 @@
 package com.arthur.urlshortener.link.service;
 
+import com.arthur.urlshortener.exception.LinkNotFoundException;
 import com.arthur.urlshortener.link.dto.LinkListResponseDto;
 import com.arthur.urlshortener.link.dto.ShortenResponseDto;
 import com.arthur.urlshortener.link.entity.AccessLog;
 import com.arthur.urlshortener.link.entity.Link;
-import com.arthur.urlshortener.exception.LinkNotFoundException;
 import com.arthur.urlshortener.link.repository.AccessLogRepository;
 import com.arthur.urlshortener.link.repository.LinkRepository;
 import jakarta.servlet.http.HttpServletRequest;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 
@@ -20,11 +19,14 @@ public class LinkService {
 
     private static final String APPLICATION_URL = "https://short.local/";
 
-    @Autowired
-    private LinkRepository linkRepository;
+    private final LinkRepository linkRepository;
 
-    @Autowired
-    private AccessLogRepository accessLogRepository;
+    private final AccessLogRepository accessLogRepository;
+
+    public LinkService(LinkRepository linkRepository, AccessLogRepository accessLogRepository) {
+        this.linkRepository = linkRepository;
+        this.accessLogRepository = accessLogRepository;
+    }
 
     public ShortenResponseDto createShortLink(String originalUrl) {
         Link link = Link.create(originalUrl);

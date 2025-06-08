@@ -7,7 +7,6 @@ import com.arthur.urlshortener.link.dto.ShortenResponseDto;
 import com.arthur.urlshortener.link.service.LinkService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,8 +22,11 @@ import java.util.List;
 @RestController
 public class LinkController {
 
-    @Autowired
-    private LinkService linkService;
+    private final LinkService linkService;
+
+    public LinkController(LinkService linkService) {
+        this.linkService = linkService;
+    }
 
     @PostMapping("/api/shorten")
     public ResponseEntity<ShortenResponseDto> createShortLink(@Valid @RequestBody ShortenRequestDto request) {
