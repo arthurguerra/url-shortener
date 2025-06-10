@@ -4,9 +4,9 @@ run `docker compose --profile app up --build`
 
 ```mermaid
 sequenceDiagram
-    participant C as Cliente
+    participant C as Client
     participant A as API
-    participant DB as Banco de Dados
+    participant DB as Database
     Note right of A: Spring Security + JWT
 
     C->>A: POST /auth/register<br>{username, email, password}
