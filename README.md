@@ -11,7 +11,7 @@ sequenceDiagram
     participant DB as Database
     Note right of A: Spring Security + JWT
 
-    C->>A: POST /auth/register<br>{username, email, password}
+    C->>A: POST /auth/register<br>{email, password}
     A->>DB: Save user with encrypted password
     DB-->>A: OK
     A-->>C: 201 Created
