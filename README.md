@@ -1,3 +1,5 @@
+[![Swagger UI](https://img.shields.io/badge/docs-Swagger_UI-blue?logo=swagger)](http://localhost:8080/swagger-ui/index.html)
+
 run `docker compose --profile app up --build`
 
 <details> <summary>🧩 Show Authorization Flow in Mermaid Diagram</summary>
