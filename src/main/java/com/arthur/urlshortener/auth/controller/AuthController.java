@@ -3,6 +3,7 @@ package com.arthur.urlshortener.auth.controller;
 import com.arthur.urlshortener.auth.dto.RegisterRequest;
 import com.arthur.urlshortener.auth.dto.RegisterResponse;
 import com.arthur.urlshortener.auth.service.AuthService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/auth")
+@Tag(name = "Authentication", description = "Authentication endpoints")
 public class AuthController {
 
     private final AuthService authService;
