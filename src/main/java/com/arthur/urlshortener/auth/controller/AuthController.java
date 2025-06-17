@@ -1,5 +1,7 @@
 package com.arthur.urlshortener.auth.controller;
 
+import com.arthur.urlshortener.auth.dto.LoginRequest;
+import com.arthur.urlshortener.auth.dto.LoginResponse;
 import com.arthur.urlshortener.auth.dto.RegisterRequest;
 import com.arthur.urlshortener.auth.dto.RegisterResponse;
 import com.arthur.urlshortener.auth.service.AuthService;
@@ -25,6 +27,12 @@ public class AuthController {
     @PostMapping("/register")
     public ResponseEntity<RegisterResponse> register(@Valid @RequestBody RegisterRequest request) {
         RegisterResponse response = authService.registerUser(request);
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<LoginResponse> login(@Valid @RequestBody LoginRequest request) {
+        LoginResponse response = authService.login(request);
         return ResponseEntity.ok(response);
     }
 }
