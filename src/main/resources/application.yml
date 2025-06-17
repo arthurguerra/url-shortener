@@ -13,3 +13,7 @@ logging:
   level:
     org.hibernate.SQL: DEBUG
     org.hibernate.orm.jdbc.bind: TRACE
+
+jwt:
+  secret: ${JWT_SECRET:mySecretKey1234567890mySecretKey1234567890}
+  expirationMs: ${JWT_EXPIRATION_MS:3600000}
