@@ -35,7 +35,7 @@ public class LinkService {
         linkRepository.save(link);
         String shortUrl = APPLICATION_URL + link.getShortCode();
 
-        return new ShortenResponseDto(originalUrl, shortUrl);
+        return new ShortenResponseDto(shortUrl, originalUrl);
     }
 
     public String getOriginalUrlAndRegisterClick(String shortCode, HttpServletRequest request) {
