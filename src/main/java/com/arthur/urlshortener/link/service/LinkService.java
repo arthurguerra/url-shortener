@@ -42,8 +42,9 @@ public class LinkService {
         Link link = getLink(shortCode);
         link.registerClick();
 
-        createAccessLog(link, request);
+        AccessLog accessLog = createAccessLog(link, request);
 
+        link.addAccessLog(accessLog);
         linkRepository.save(link);
 
         return link.getOriginalUrl();
@@ -82,11 +83,11 @@ public class LinkService {
                 .orElseThrow(() -> new LinkNotFoundException("Short code not found: " + shortCode));
     }
 
-    private void createAccessLog(Link link, HttpServletRequest request) {
+    private AccessLog createAccessLog(Link link, HttpServletRequest request) {
         String ip = request.getRemoteAddr();
         String userAgent = request.getHeader(HttpHeaders.USER_AGENT);
 
         AccessLog accessLog = AccessLog.create(link, ip, userAgent);
-        accessLogRepository.save(accessLog);
+        return accessLogRepository.save(accessLog);
     }
 }
