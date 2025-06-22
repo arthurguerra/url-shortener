@@ -1,5 +1,6 @@
 package com.arthur.urlshortener.link.controller;
 
+import com.arthur.urlshortener.common.PaginationRequest;
 import com.arthur.urlshortener.link.dto.DeleteLinkResponse;
 import com.arthur.urlshortener.link.dto.LinkListResponseDto;
 import com.arthur.urlshortener.link.dto.LinkLogsResponse;
@@ -9,6 +10,7 @@ import com.arthur.urlshortener.link.service.LinkService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,8 +20,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 @RestController
 @Tag(name = "Links", description = "Operations related to shortened links")
@@ -47,8 +47,8 @@ public class LinkController {
     }
 
     @GetMapping("/api/links")
-    public ResponseEntity<List<LinkListResponseDto>> getAllLinks() {
-        return ResponseEntity.ok(linkService.getAllLinks());
+    public ResponseEntity<Page<LinkListResponseDto>> getAllLinks(@Valid PaginationRequest paginationRequest) {
+        return ResponseEntity.ok(linkService.getAllLinks(paginationRequest.toPageable()));
     }
 
     @DeleteMapping("/api/link/{shortCode}")

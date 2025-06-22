@@ -1,19 +1,19 @@
 package com.arthur.urlshortener.link.service;
 
 import com.arthur.urlshortener.acesslog.dto.AccessLogResponse;
+import com.arthur.urlshortener.acesslog.entity.AccessLog;
+import com.arthur.urlshortener.acesslog.repository.AccessLogRepository;
 import com.arthur.urlshortener.exception.LinkNotFoundException;
 import com.arthur.urlshortener.link.dto.LinkListResponseDto;
 import com.arthur.urlshortener.link.dto.LinkLogsResponse;
 import com.arthur.urlshortener.link.dto.ShortenResponseDto;
-import com.arthur.urlshortener.acesslog.entity.AccessLog;
 import com.arthur.urlshortener.link.entity.Link;
-import com.arthur.urlshortener.acesslog.repository.AccessLogRepository;
 import com.arthur.urlshortener.link.repository.LinkRepository;
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 
 @Service
@@ -49,13 +49,13 @@ public class LinkService {
         return link.getOriginalUrl();
     }
 
-    public List<LinkListResponseDto> getAllLinks() {
-        return linkRepository.findAll().stream()
+    public Page<LinkListResponseDto> getAllLinks(Pageable pageable) {
+        return linkRepository.findAll(pageable)
                 .map(link -> new LinkListResponseDto(
                         link.getShortCode(),
                         link.getOriginalUrl(),
-                        link.getClicks()))
-                .toList();
+                        link.getClicks()
+                ));
     }
 
     public void deleteLink(String shortCode) {
