@@ -7,6 +7,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import lombok.Getter;
 
 import java.time.LocalDateTime;
 
@@ -20,8 +21,11 @@ public class AccessLog {
     @JoinColumn(name = "link_id", nullable = false)
     private Link link;
 
+    @Getter
     private String ip;
+    @Getter
     private String userAgent;
+    @Getter
     private LocalDateTime accessedAt;
 
     protected AccessLog() {}
@@ -35,17 +39,5 @@ public class AccessLog {
 
     public static AccessLog create(Link link, String ip, String userAgent) {
         return new AccessLog(link, ip, userAgent);
-    }
-
-    public String getIp() {
-        return ip;
-    }
-
-    public String getUserAgent() {
-        return userAgent;
-    }
-
-    public LocalDateTime getAccessedAt() {
-        return accessedAt;
     }
 }
