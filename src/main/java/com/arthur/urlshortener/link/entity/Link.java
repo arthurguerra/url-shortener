@@ -9,6 +9,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.Getter;
 import org.apache.commons.validator.routines.UrlValidator;
 
 import java.time.LocalDateTime;
@@ -25,18 +26,22 @@ public class Link {
     @GeneratedValue
     private UUID id;
 
+    @Getter
     @Column(nullable = false, unique = true)
     private String shortCode;
 
+    @Getter
     @Column(nullable = false)
     private String originalUrl;
 
     @Column(nullable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
 
+    @Getter
     @Column(nullable = false)
     private Long clicks;
 
+    @Getter
     @OneToMany(mappedBy = "link", cascade = CascadeType.ALL)
     private List<AccessLog> accessLogs = new ArrayList<>();
 
@@ -64,22 +69,6 @@ public class Link {
         this.clicks++;
     }
 
-    public String getShortCode() {
-        return shortCode;
-    }
-
-    public String getOriginalUrl() {
-        return originalUrl;
-    }
-
-    public Long getClicks() {
-        return clicks;
-    }
-
-    public List<AccessLog> getAccessLogs() {
-        return accessLogs;
-    }
-
     private String generateShortCode() {
         return UUID.randomUUID().toString().substring(0, 6);
     }
@@ -88,5 +77,9 @@ public class Link {
         if (!urlValidator.isValid(originalUrl) || DISALLOWED_SCHEMES.matcher(originalUrl).find()) {
             throw new InvalidUrlException("Invalid URL: " + originalUrl);
         }
+    }
+
+    public void addAccessLog(AccessLog accessLog) {
+        this.getAccessLogs().add(accessLog);
     }
 }
