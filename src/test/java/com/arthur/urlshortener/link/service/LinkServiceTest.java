@@ -125,6 +125,7 @@ class LinkServiceTest {
     }
 
     @Test
+    @DisplayName("Should return mapped page successfully")
     void getAllLinks_shouldReturnMappedPage() {
         Pageable pageable = PageRequest.of(0, 10);
         PageImpl<Link> linkPage = new PageImpl<>(List.of(
