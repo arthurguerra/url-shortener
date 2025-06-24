@@ -9,7 +9,14 @@ import java.util.regex.Pattern;
 @Embeddable
 public class Email {
 
-    private static final Pattern EMAIL_PATTERN = Pattern.compile("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$");
+    private static final String EMAIL_REGEX =
+            "^" +
+            "(?=.{1,320}$)" +
+            "(?=([^@]{1,64})@)" +
+            "(?=[^@]*@(.{1,253})$)" +
+            "^[a-zA-Z0-9]+([._-][a-zA-Z0-9]+)*@[a-zA-Z0-9]+([.-][a-zA-Z0-9]+)*\\.[a-zA-Z]{2,}$";
+
+    private static final Pattern EMAIL_PATTERN = Pattern.compile(EMAIL_REGEX);
 
     @Column(name = "email", nullable = false, unique = true)
     private String value;
