@@ -60,9 +60,21 @@ public class Link {
         this.clicks = 0L;
     }
 
+    private Link(String originalUrl, String shortCode) {
+        this.shortCode = shortCode;
+        this.originalUrl = originalUrl;
+        this.createdAt = LocalDateTime.now();
+        this.clicks = 0L;
+    }
+
     public static Link create(String originalUrl) {
         isValidUrl(originalUrl);
         return new Link(originalUrl);
+    }
+
+    public static Link create(String originalUrl, String shortCode) {
+        isValidUrl(originalUrl);
+        return new Link(originalUrl, shortCode);
     }
 
     public void registerClick() {

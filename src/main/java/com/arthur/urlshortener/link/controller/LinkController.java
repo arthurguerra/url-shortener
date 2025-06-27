@@ -4,6 +4,7 @@ import com.arthur.urlshortener.common.PaginationRequest;
 import com.arthur.urlshortener.link.dto.DeleteLinkResponse;
 import com.arthur.urlshortener.link.dto.LinkListResponseDto;
 import com.arthur.urlshortener.link.dto.LinkLogsResponse;
+import com.arthur.urlshortener.link.dto.ShortenCustomRequestDto;
 import com.arthur.urlshortener.link.dto.ShortenRequestDto;
 import com.arthur.urlshortener.link.dto.ShortenResponseDto;
 import com.arthur.urlshortener.link.service.LinkService;
@@ -34,6 +35,12 @@ public class LinkController {
     @PostMapping("/api/shorten")
     public ResponseEntity<ShortenResponseDto> createShortLink(@Valid @RequestBody ShortenRequestDto request) {
         ShortenResponseDto response = linkService.createShortLink(request.url());
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
+
+    @PostMapping("/api/shorten/custom")
+    public ResponseEntity<ShortenResponseDto> createCustomShortLink(@Valid @RequestBody ShortenCustomRequestDto request) {
+        ShortenResponseDto response = linkService.createCustomShortLink(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 

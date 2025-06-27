@@ -4,8 +4,10 @@ import com.arthur.urlshortener.acesslog.dto.AccessLogResponse;
 import com.arthur.urlshortener.acesslog.entity.AccessLog;
 import com.arthur.urlshortener.acesslog.repository.AccessLogRepository;
 import com.arthur.urlshortener.exception.LinkNotFoundException;
+import com.arthur.urlshortener.exception.ShortCodeAlreadyExistsException;
 import com.arthur.urlshortener.link.dto.LinkListResponseDto;
 import com.arthur.urlshortener.link.dto.LinkLogsResponse;
+import com.arthur.urlshortener.link.dto.ShortenCustomRequestDto;
 import com.arthur.urlshortener.link.dto.ShortenResponseDto;
 import com.arthur.urlshortener.link.entity.Link;
 import com.arthur.urlshortener.link.repository.LinkRepository;
@@ -36,6 +38,18 @@ public class LinkService {
         String shortUrl = APPLICATION_URL + link.getShortCode();
 
         return new ShortenResponseDto(shortUrl, originalUrl);
+    }
+
+    public ShortenResponseDto createCustomShortLink(ShortenCustomRequestDto request) {
+        Boolean isShortCodeInUse = linkRepository.existsByShortCode(request.shortCode());
+        if (Boolean.TRUE.equals(isShortCodeInUse)) {
+            throw new ShortCodeAlreadyExistsException("Short code already in use");
+        }
+
+        Link link = Link.create(request.url(), request.shortCode());
+        linkRepository.save(link);
+
+        return new ShortenResponseDto(APPLICATION_URL + link.getShortCode(), request.url());
     }
 
     public String getOriginalUrlAndRegisterClick(String shortCode, HttpServletRequest request) {

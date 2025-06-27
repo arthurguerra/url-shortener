@@ -63,4 +63,10 @@ public class GlobalExceptionHandler {
         ErrorResponse error = new ErrorResponse(LocalDateTime.now(), HttpStatus.BAD_REQUEST.value(), "Authentication Error", ex.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
     }
+
+    @ExceptionHandler(ShortCodeAlreadyExistsException.class)
+    public ResponseEntity<ErrorResponse> handleShortCodeAlreadyExists(ShortCodeAlreadyExistsException ex) {
+        ErrorResponse error = new ErrorResponse(LocalDateTime.now(), HttpStatus.CONFLICT.value(), "Short Code Already Exists", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(error);
+    }
 }
