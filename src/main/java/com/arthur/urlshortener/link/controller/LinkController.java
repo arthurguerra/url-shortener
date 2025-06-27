@@ -34,7 +34,7 @@ public class LinkController {
     @PostMapping("/api/shorten")
     public ResponseEntity<ShortenResponseDto> createShortLink(@Valid @RequestBody ShortenRequestDto request) {
         ShortenResponseDto response = linkService.createShortLink(request.url());
-        return ResponseEntity.ok(response);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     @GetMapping("/{shortCode}")
