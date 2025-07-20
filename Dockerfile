@@ -5,8 +5,9 @@ RUN mvn clean package -DskipTests
 
 FROM eclipse-temurin:21-jre
 WORKDIR /app
-COPY --from=build /app/target/urlshortener-0.0.1-SNAPSHOT.jar app.jar
+ENV JAR_NAME=urlshortener.jar
+COPY --from=build /app/target/$JAR_NAME $JAR_NAME
 
 EXPOSE ${SERVER_PORT}
 
-ENTRYPOINT ["java", "-jar", "app.jar"]
+CMD java -jar $JAR_NAME
