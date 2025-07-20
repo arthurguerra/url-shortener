@@ -11,6 +11,8 @@ services:
       - "${POSTGRES_PORT}:5432"
     volumes:
       - db_data:/var/lib/postgresql/data
+    networks:
+      - urlshortener-network
 
   app:
     build: .
@@ -22,6 +24,12 @@ services:
     depends_on:
       - db
     profiles: ["app"]
+    networks:
+      - urlshortener-network
 
 volumes:
   db_data:
+
+networks:
+  urlshortener-network:
+    driver: bridge
