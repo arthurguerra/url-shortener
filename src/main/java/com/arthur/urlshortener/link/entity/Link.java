@@ -34,6 +34,7 @@ public class Link {
     @Column(nullable = false)
     private String originalUrl;
 
+    @Getter
     @Column(nullable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
 

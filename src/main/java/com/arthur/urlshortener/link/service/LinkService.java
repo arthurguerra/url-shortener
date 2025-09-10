@@ -17,11 +17,15 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 
+import java.time.format.DateTimeFormatter;
+
 
 @Service
 public class LinkService {
 
     private static final String APPLICATION_URL = "https://short.local/";
+
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
     private final LinkRepository linkRepository;
 
@@ -69,7 +73,8 @@ public class LinkService {
                 .map(link -> new LinkListResponseDto(
                         link.getShortCode(),
                         link.getOriginalUrl(),
-                        link.getClicks()
+                        link.getClicks(),
+                        link.getCreatedAt().format(formatter)
                 ));
     }
 
